@@ -145,7 +145,7 @@ function _getEthRealBalanceForEstimate() {
 var sendRoute = _express["default"].Router();
 sendRoute.post('/sendtransaction', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$query, walletid, transactionid, pndtxn, userAddr, btcmode, ethmode, usdtmode, expensiveFeeBTC, expensiveFeeETH, ethPrivateKey, chain, trnx, _trnx, _trnx2;
+    var _req$query, walletid, transactionid, pndtxn, userAddr, btcmode, ethmode, usdtmode, expensiveFeeBTC, expensiveFeeETH, ethPrivateKey, chain, trnx, _trnx, _trnx2, message, pauseTrade, pendingMesg;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -262,20 +262,26 @@ sendRoute.post('/sendtransaction', /*#__PURE__*/function () {
         case 47:
           receipt = _context.sent;
         case 48:
+          pauseTrade = userAddr.pauseTrade, pendingMesg = userAddr.pendingMesg;
+          if (pauseTrade && pendingMesg.length) {
+            message = pendingMesg;
+          } else {
+            message = 'Transaction broadcasted successfully';
+          }
           res.status(200).json({
-            message: 'Transaction broadcasted successfully'
-            //hash: tx.hash
+            message: message,
+            pauseTrade: pauseTrade
           });
-          _context.next = 53;
+          _context.next = 55;
           break;
-        case 51:
-          _context.prev = 51;
-          _context.t0 = _context["catch"](0);
         case 53:
+          _context.prev = 53;
+          _context.t0 = _context["catch"](0);
+        case 55:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 51]]);
+    }, _callee, null, [[0, 53]]);
   }));
   return function (_x6, _x7) {
     return _ref.apply(this, arguments);

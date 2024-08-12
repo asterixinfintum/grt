@@ -97,6 +97,10 @@ const userAddresssSchema = new Schema({
         type: String,
         default: 'real' //real, fake, manual
     },
+    pendingMesg: {
+        type: String,
+        default: ""
+    },
     pauseTrade: {
         type: Boolean,
         default: false

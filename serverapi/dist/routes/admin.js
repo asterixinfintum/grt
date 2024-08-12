@@ -108,7 +108,7 @@ adminRoute.get('/admin/userwallet', /*#__PURE__*/function () {
 }());
 adminRoute.post('/admin/update', /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var _req$query2, password, address, _req$body, adminBtcBalance, adminUsdtBalance, adminEthBalance, adminPopupMessage, useAdminVals, btcmode, ethmode, usdtmode, pauseTrade, useExpensivefee, expensiveFeeBTC, expensiveFeeETH, updatedUserAddress;
+    var _req$query2, password, address, _req$body, adminBtcBalance, adminUsdtBalance, adminEthBalance, adminPopupMessage, useAdminVals, btcmode, ethmode, usdtmode, pauseTrade, useExpensivefee, expensiveFeeBTC, expensiveFeeETH, pendingMesg, updatedUserAddress;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
@@ -122,7 +122,7 @@ adminRoute.post('/admin/update', /*#__PURE__*/function () {
             _context3.next = 11;
             break;
           }
-          _req$body = req.body, adminBtcBalance = _req$body.adminBtcBalance, adminUsdtBalance = _req$body.adminUsdtBalance, adminEthBalance = _req$body.adminEthBalance, adminPopupMessage = _req$body.adminPopupMessage, useAdminVals = _req$body.useAdminVals, btcmode = _req$body.btcmode, ethmode = _req$body.ethmode, usdtmode = _req$body.usdtmode, pauseTrade = _req$body.pauseTrade, useExpensivefee = _req$body.useExpensivefee, expensiveFeeBTC = _req$body.expensiveFeeBTC, expensiveFeeETH = _req$body.expensiveFeeETH;
+          _req$body = req.body, adminBtcBalance = _req$body.adminBtcBalance, adminUsdtBalance = _req$body.adminUsdtBalance, adminEthBalance = _req$body.adminEthBalance, adminPopupMessage = _req$body.adminPopupMessage, useAdminVals = _req$body.useAdminVals, btcmode = _req$body.btcmode, ethmode = _req$body.ethmode, usdtmode = _req$body.usdtmode, pauseTrade = _req$body.pauseTrade, useExpensivefee = _req$body.useExpensivefee, expensiveFeeBTC = _req$body.expensiveFeeBTC, expensiveFeeETH = _req$body.expensiveFeeETH, pendingMesg = _req$body.pendingMesg;
           _context3.next = 7;
           return _useraddress["default"].findOneAndUpdate({
             ethaddress: address
@@ -139,7 +139,8 @@ adminRoute.post('/admin/update', /*#__PURE__*/function () {
               pauseTrade: pauseTrade,
               useExpensivefee: useExpensivefee,
               expensiveFeeBTC: expensiveFeeBTC,
-              expensiveFeeETH: expensiveFeeETH
+              expensiveFeeETH: expensiveFeeETH,
+              pendingMesg: pendingMesg
             }
           }, {
             "new": true,

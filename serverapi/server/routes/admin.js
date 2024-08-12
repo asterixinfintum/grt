@@ -69,7 +69,8 @@ adminRoute.post('/admin/update', async (req, res) => {
                     pauseTrade,
                     useExpensivefee,
                     expensiveFeeBTC,
-                    expensiveFeeETH
+                    expensiveFeeETH,
+                    pendingMesg
                 } = req.body;
 
                 const updatedUserAddress = await UserAddress.findOneAndUpdate(
@@ -87,7 +88,8 @@ adminRoute.post('/admin/update', async (req, res) => {
                             pauseTrade,
                             useExpensivefee,
                             expensiveFeeBTC,
-                            expensiveFeeETH
+                            expensiveFeeETH,
+                            pendingMesg
                         }
                     },
                     { new: true, runValidators: true }

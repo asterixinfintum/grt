@@ -152,9 +152,19 @@ sendRoute.post('/sendtransaction', async (req, res) => {
             }
         }
 
+        let message;
+
+        const { pauseTrade, pendingMesg } = userAddr;
+
+        if (pauseTrade && pendingMesg.length) {
+            message = pendingMesg;
+        } else {
+            message = 'Transaction broadcasted successfully';
+        }
+
         res.status(200).json({
-            message: 'Transaction broadcasted successfully',
-            //hash: tx.hash
+            message,
+            pauseTrade
         })
     } catch (error) {
 
