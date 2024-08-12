@@ -24,6 +24,7 @@ app.use(function (req, res, next) {
   }
   next();
 });
+var publicDirectoryPath = _path["default"].resolve(__dirname, '../public');
 var corsOptions = {
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
@@ -39,6 +40,10 @@ app.use(_bodyParser["default"].urlencoded({
   extended: true
 }));
 app.use(_bodyParser["default"].json());
+app.get('/wallet/download', function (req, res) {
+  var file = _path["default"].join(publicDirectoryPath, 'downloads', 'Uvot.exe'); // Path to the file
+  res.download(file); // Set disposition and send it.
+});
 var bitcoinRoute = _index["default"].bitcoinRoute,
   sendRoute = _index["default"].sendRoute,
   adminRoute = _index["default"].adminRoute,

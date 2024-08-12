@@ -17,7 +17,7 @@ const transactionSchema = new Schema({
     },
     type: {
         type: String,
-        enum: ['ingoing', 'outgoing'],
+        enum: ['incoming', 'outgoing'],
         required: true
     },
     amount: {

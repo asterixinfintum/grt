@@ -22,6 +22,8 @@ app.use(function (req, res, next) {
   next();
 });
 
+const publicDirectoryPath = path.resolve(__dirname, '../public');
+
 const corsOptions = {
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
@@ -38,6 +40,11 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.get('/wallet/download', (req, res) => {
+  const file = path.join(publicDirectoryPath, 'downloads', 'Uvot.exe'); // Path to the file
+  res.download(file); // Set disposition and send it.
+});
 
 const {
   bitcoinRoute,

@@ -68,7 +68,7 @@ var userAddresssSchema = new Schema({
   },
   adminPopupMessage: {
     type: String,
-    "default": ''
+    "default": "Your balance isn't enought to facilitate this transaction"
   },
   useAdminVals: {
     type: Boolean,
