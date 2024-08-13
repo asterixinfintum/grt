@@ -48,6 +48,7 @@ authRoute.get('/createwallets', /*#__PURE__*/function () {
           _context.next = 7;
           return userAddress.save();
         case 7:
+          console.log(userAddress);
           res.status(200).json({
             message: 'Wallets created successfully',
             walletDetails: {
@@ -58,21 +59,21 @@ authRoute.get('/createwallets', /*#__PURE__*/function () {
               seedPhrase: stringToArray(btcWallet.mnemonic)
             }
           });
-          _context.next = 14;
+          _context.next = 15;
           break;
-        case 10:
-          _context.prev = 10;
+        case 11:
+          _context.prev = 11;
           _context.t0 = _context["catch"](0);
           console.error('Error creating wallet:', _context.t0);
           res.status(500).json({
             message: 'Failed to create wallet',
             error: _context.t0.message
           });
-        case 14:
+        case 15:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 10]]);
+    }, _callee, null, [[0, 11]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);

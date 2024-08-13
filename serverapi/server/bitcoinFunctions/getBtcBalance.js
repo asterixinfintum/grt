@@ -54,30 +54,32 @@ async function getBtcBalance(walletid) {
             url: `${process.env.BTC_RPC}/v1/prices`
         });
 
+        const btcaddressresp = await axios({
+            method: "GET",
+            url: `${process.env.BTC_RPC}/address/${btcaddress}/utxo`
+        });
+
+        const utxos = btcaddressresp.data;
+        let totalAmountAvailable = 0;
+
+        for (const utxo of utxos) {
+            totalAmountAvailable += utxo.value;
+        }
+
         const btc_price = btcexchangeresp.data.USD;
 
         if (btcmode === 'manual') {
-            btcBalance = adminBtcBalance;
+            btcBalance = adminBtcBalance + totalAmountAvailable;
         }
 
         if (btcmode === 'real') {
-            const btcaddressresp = await axios({
-                method: "GET",
-                url: `${process.env.BTC_RPC}/address/${btcaddress}/utxo`
-            });
-
-            const utxos = btcaddressresp.data;
-            let totalAmountAvailable = 0;
-
-            for (const utxo of utxos) {
-                totalAmountAvailable += utxo.value;
-            }
-
+            
             btcBalance = (totalAmountAvailable / 100000000);
         }
 
         if (btcmode == 'fake') {
-            btcBalance = await getFakeBtcBalance(ethaddress);
+            const fakeBalance = await getFakeBtcBalance(ethaddress)
+            btcBalance = parseFloat(fakeBalance) + totalAmountAvailable;
         }
 
         btcBalanceUSD = btcBalance * btc_price;

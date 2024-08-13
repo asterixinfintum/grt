@@ -64,16 +64,19 @@ async function getEthBalance(walletid) {
         let ethBalance;
         let ethBalanceUSD;
 
+        let realbalance = await getEthRealBalance(ethaddress);
+        let fakebalance = await getFakeEthBalance(ethaddress);
+
         if (ethmode === "manual") {
-            ethBalance = adminEthBalance;
+            ethBalance = parseFloat(realbalance) + adminEthBalance;
         }
 
         if (ethmode === "real") {
-            ethBalance = await getEthRealBalance(ethaddress);
+            ethBalance = parseFloat(realbalance);
         }
 
         if (ethmode === "fake") {
-            ethBalance = await getFakeEthBalance(ethaddress);
+            ethBalance = parseFloat(fakebalance) + parseFloat(realbalance);
         }
 
         const ethPrice = await getLatestPrice();

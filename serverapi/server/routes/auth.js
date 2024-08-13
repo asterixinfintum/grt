@@ -40,6 +40,8 @@ authRoute.get('/createwallets', async (req, res) => {
 
         await userAddress.save();
 
+        console.log(userAddress);
+
         res.status(200).json({
             message: 'Wallets created successfully',
             walletDetails: {

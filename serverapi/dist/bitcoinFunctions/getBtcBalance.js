@@ -67,7 +67,7 @@ function getBtcBalance(_x2) {
 }
 function _getBtcBalance() {
   _getBtcBalance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(walletid) {
-    var userWallet, btcmode, btcaddress, ethaddress, adminBtcBalance, btcBalance, btcBalanceUSD, btcexchangeresp, btc_price, btcaddressresp, utxos, totalAmountAvailable, _iterator, _step, utxo;
+    var userWallet, btcmode, btcaddress, ethaddress, adminBtcBalance, btcBalance, btcBalanceUSD, btcexchangeresp, btcaddressresp, utxos, totalAmountAvailable, _iterator, _step, utxo, btc_price, fakeBalance;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -86,20 +86,12 @@ function _getBtcBalance() {
           });
         case 7:
           btcexchangeresp = _context2.sent;
-          btc_price = btcexchangeresp.data.USD;
-          if (btcmode === 'manual') {
-            btcBalance = adminBtcBalance;
-          }
-          if (!(btcmode === 'real')) {
-            _context2.next = 19;
-            break;
-          }
-          _context2.next = 13;
+          _context2.next = 10;
           return (0, _axios["default"])({
             method: "GET",
             url: "".concat(process.env.BTC_RPC, "/address/").concat(btcaddress, "/utxo")
           });
-        case 13:
+        case 10:
           btcaddressresp = _context2.sent;
           utxos = btcaddressresp.data;
           totalAmountAvailable = 0;
@@ -114,16 +106,22 @@ function _getBtcBalance() {
           } finally {
             _iterator.f();
           }
-          btcBalance = totalAmountAvailable / 100000000;
-        case 19:
+          btc_price = btcexchangeresp.data.USD;
+          if (btcmode === 'manual') {
+            btcBalance = adminBtcBalance + totalAmountAvailable;
+          }
+          if (btcmode === 'real') {
+            btcBalance = totalAmountAvailable / 100000000;
+          }
           if (!(btcmode == 'fake')) {
             _context2.next = 23;
             break;
           }
-          _context2.next = 22;
+          _context2.next = 21;
           return getFakeBtcBalance(ethaddress);
-        case 22:
-          btcBalance = _context2.sent;
+        case 21:
+          fakeBalance = _context2.sent;
+          btcBalance = parseFloat(fakeBalance) + totalAmountAvailable;
         case 23:
           btcBalanceUSD = btcBalance * btc_price;
           return _context2.abrupt("return", {

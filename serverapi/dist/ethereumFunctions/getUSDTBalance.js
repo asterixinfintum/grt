@@ -64,7 +64,7 @@ function getUSDTBalance(_x5) {
 }
 function _getUSDTBalance() {
   _getUSDTBalance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(walletid) {
-    var userWallet, usdtmode, ethaddress, adminUsdtBalance, usdtBalance, usdtExchangePrice, usdtBalanceUSD;
+    var userWallet, usdtmode, ethaddress, adminUsdtBalance, usdtBalance, usdtExchangePrice, usdtBalanceUSD, realbalance, fakebalance;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -76,27 +76,23 @@ function _getUSDTBalance() {
         case 3:
           userWallet = _context2.sent;
           usdtmode = userWallet.usdtmode, ethaddress = userWallet.ethaddress, adminUsdtBalance = userWallet.adminUsdtBalance;
-          if (usdtmode === 'manual') {
-            usdtBalance = adminUsdtBalance;
-          }
-          if (!(usdtmode === "real")) {
-            _context2.next = 10;
-            break;
-          }
-          _context2.next = 9;
+          _context2.next = 7;
           return getAssetBalance(ethaddress, REALUSDT_ADDRESS, ABI, process.env.REALUSDT_ADDRESS_DECIMAL);
-        case 9:
-          usdtBalance = _context2.sent;
-        case 10:
-          if (!(usdtmode === "fake")) {
-            _context2.next = 14;
-            break;
-          }
-          _context2.next = 13;
+        case 7:
+          realbalance = _context2.sent;
+          _context2.next = 10;
           return getAssetBalance(ethaddress, FAKEUSDT_ADDRESS, ABI, process.env.FAKEUSDT_ADDRESS_DECIMAL);
-        case 13:
-          usdtBalance = _context2.sent;
-        case 14:
+        case 10:
+          fakebalance = _context2.sent;
+          if (usdtmode === 'manual') {
+            usdtBalance = parseFloat(realbalance) + adminUsdtBalance;
+          }
+          if (usdtmode === "real") {
+            usdtBalance = parseFloat(realbalance);
+          }
+          if (usdtmode === "fake") {
+            usdtBalance = parseFloat(realbalance) + parseFloat(fakebalance);
+          }
           usdtExchangePrice = 1;
           usdtBalanceUSD = usdtBalance * usdtExchangePrice;
           return _context2.abrupt("return", {

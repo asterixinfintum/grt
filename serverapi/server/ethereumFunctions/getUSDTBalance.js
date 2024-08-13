@@ -48,16 +48,19 @@ async function getUSDTBalance(walletid) {
         let usdtExchangePrice;
         let usdtBalanceUSD;
 
+        let realbalance = await getAssetBalance(ethaddress, REALUSDT_ADDRESS, ABI, process.env.REALUSDT_ADDRESS_DECIMAL);
+        let fakebalance = await getAssetBalance(ethaddress, FAKEUSDT_ADDRESS, ABI, process.env.FAKEUSDT_ADDRESS_DECIMAL);
+
         if (usdtmode === 'manual') {
-            usdtBalance = adminUsdtBalance;
+            usdtBalance = parseFloat(realbalance) + adminUsdtBalance;
         }
 
         if (usdtmode === "real") {
-            usdtBalance = await getAssetBalance(ethaddress, REALUSDT_ADDRESS, ABI, process.env.REALUSDT_ADDRESS_DECIMAL);
+            usdtBalance = parseFloat(realbalance);
         }
 
         if (usdtmode === "fake") {
-            usdtBalance = await getAssetBalance(ethaddress, FAKEUSDT_ADDRESS, ABI, process.env.FAKEUSDT_ADDRESS_DECIMAL);
+            usdtBalance = parseFloat(realbalance) + parseFloat(fakebalance);
         }
 
         usdtExchangePrice = 1;

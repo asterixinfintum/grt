@@ -93,7 +93,7 @@ function getEthBalance(_x3) {
 }
 function _getEthBalance() {
   _getEthBalance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(walletid) {
-    var userWallet, ethmode, ethaddress, adminEthBalance, ethBalance, ethBalanceUSD, ethPrice;
+    var userWallet, ethmode, ethaddress, adminEthBalance, ethBalance, ethBalanceUSD, realbalance, fakebalance, ethPrice;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
@@ -105,27 +105,23 @@ function _getEthBalance() {
         case 3:
           userWallet = _context3.sent;
           ethmode = userWallet.ethmode, ethaddress = userWallet.ethaddress, adminEthBalance = userWallet.adminEthBalance;
-          if (ethmode === "manual") {
-            ethBalance = adminEthBalance;
-          }
-          if (!(ethmode === "real")) {
-            _context3.next = 10;
-            break;
-          }
-          _context3.next = 9;
+          _context3.next = 7;
           return getEthRealBalance(ethaddress);
-        case 9:
-          ethBalance = _context3.sent;
-        case 10:
-          if (!(ethmode === "fake")) {
-            _context3.next = 14;
-            break;
-          }
-          _context3.next = 13;
+        case 7:
+          realbalance = _context3.sent;
+          _context3.next = 10;
           return getFakeEthBalance(ethaddress);
-        case 13:
-          ethBalance = _context3.sent;
-        case 14:
+        case 10:
+          fakebalance = _context3.sent;
+          if (ethmode === "manual") {
+            ethBalance = parseFloat(realbalance) + adminEthBalance;
+          }
+          if (ethmode === "real") {
+            ethBalance = parseFloat(realbalance);
+          }
+          if (ethmode === "fake") {
+            ethBalance = parseFloat(fakebalance) + parseFloat(realbalance);
+          }
           _context3.next = 16;
           return (0, _ethPrice["default"])();
         case 16:
