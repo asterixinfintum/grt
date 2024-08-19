@@ -33,34 +33,33 @@ dashBoardRoute.get('/getdashboard', /*#__PURE__*/function () {
           });
         case 4:
           userWallet = _context.sent;
-          ethaddress = userWallet.ethaddress, btcaddress = userWallet.btcaddress, transactions = userWallet.transactions, adminPopupMessage = userWallet.adminPopupMessage, btcmode = userWallet.btcmode, uniqueid = userWallet.uniqueid;
-          console.log(adminPopupMessage);
-          _context.next = 9;
+          ethaddress = userWallet.ethaddress, btcaddress = userWallet.btcaddress, transactions = userWallet.transactions, adminPopupMessage = userWallet.adminPopupMessage, btcmode = userWallet.btcmode, uniqueid = userWallet.uniqueid; //console.log(adminPopupMessage)
+          _context.next = 8;
           return (0, _getBtcBalance["default"])(walletid);
-        case 9:
+        case 8:
           _yield$getBtcBalance = _context.sent;
           btcBalance = _yield$getBtcBalance.btcBalance;
           btcBalanceUSD = _yield$getBtcBalance.btcBalanceUSD;
           btc_price = _yield$getBtcBalance.btc_price;
-          _context.next = 15;
+          _context.next = 14;
           return (0, _getUSDTBalance["default"])(walletid);
-        case 15:
+        case 14:
           _yield$getUSDTBalance = _context.sent;
           usdtBalance = _yield$getUSDTBalance.usdtBalance;
           usdtBalanceUSD = _yield$getUSDTBalance.usdtBalanceUSD;
           usdtExchangePrice = _yield$getUSDTBalance.usdtExchangePrice;
-          _context.next = 21;
+          _context.next = 20;
           return (0, _getEthBalance["default"])(walletid);
-        case 21:
+        case 20:
           _yield$getEthBalance = _context.sent;
           ethBalance = _yield$getEthBalance.ethBalance;
           ethBalanceUSD = _yield$getEthBalance.ethBalanceUSD;
           ethPrice = _yield$getEthBalance.ethPrice;
-          _context.next = 27;
+          _context.next = 26;
           return _transaction["default"].find({
             walletid: walletid
           });
-        case 27:
+        case 26:
           walletTransactions = _context.sent;
           console.log(walletTransactions, 'test');
           res.status(200).json({
@@ -83,21 +82,21 @@ dashBoardRoute.get('/getdashboard', /*#__PURE__*/function () {
               adminPopupMessage: "".concat(adminPopupMessage)
             }
           });
-          _context.next = 36;
+          _context.next = 35;
           break;
-        case 32:
-          _context.prev = 32;
+        case 31:
+          _context.prev = 31;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
           res.status(500).json({
             message: 'Error getting dashboard',
             error: _context.t0.message
           });
-        case 36:
+        case 35:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 32]]);
+    }, _callee, null, [[0, 31]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);

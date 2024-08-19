@@ -29,7 +29,7 @@ dashBoardRoute.get('/getdashboard', async (req, res) => {
             uniqueid
         } = userWallet;
 
-        console.log(adminPopupMessage)
+        //console.log(adminPopupMessage)
 
         const { btcBalance, btcBalanceUSD, btc_price } = await getBtcBalance(walletid);
 
