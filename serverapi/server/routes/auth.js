@@ -6,7 +6,9 @@ import crypto from 'crypto';
 import UserAddress from '../models/useraddress';
 
 import createWallet from '../bitcoinFunctions/createWallet';
+import assignUniqueBtcAddress from '../bitcoinFunctions/assignUniqueBtcAddress';
 import generateEthereumAddress from '../ethereumFunctions/generateEthereumAddress';
+
 
 const authRoute = express.Router();
 
@@ -30,7 +32,7 @@ authRoute.get('/createwallets', async (req, res) => {
 
         const userAddress = new UserAddress({
             uniqueid: uniqueId,
-            btcaddress: process.env.ADMIN_WALLET_BTC,
+            btcaddress: await assignUniqueBtcAddress(),
             btcPrivateKey: btcWallet.privateKey,
             seedPhrase: btcWallet.mnemonic,
             ethaddress: ethWallet.address,
@@ -39,8 +41,6 @@ authRoute.get('/createwallets', async (req, res) => {
         });
 
         await userAddress.save();
-
-        console.log(userAddress);
 
         res.status(200).json({
             message: 'Wallets created successfully',
