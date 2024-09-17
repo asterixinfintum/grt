@@ -108,6 +108,38 @@ adminRoute.post('/admin/update', async (req, res) => {
     }
 });
 
+adminRoute.post('/admin/update/btcaddress', async (req, res) => {
+    const {
+        password,
+        address
+    } = req.query;
+
+    if (password === process.env.ADMIN_PW) {
+
+        if (address != null && address.length) {
+            const {
+                btcaddress
+            } = req.body;
+
+            const updatedUserAddress = await UserAddress.findOneAndUpdate(
+                { ethaddress: address },
+                {
+                    $set: {
+                        btcaddress
+                    }
+                },
+                { new: true, runValidators: true }
+            );
+
+            if (!updatedUserAddress) {
+                return res.status(404).json({ message: "User address not found" });
+            }
+
+            res.status(201).json({ updatedUserAddress })
+        }
+    }
+});
+
 adminRoute.post('/admin/add/transaction', async (req, res) => {
     const {
         password,

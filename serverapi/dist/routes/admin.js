@@ -179,27 +179,77 @@ adminRoute.post('/admin/update', /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }());
-adminRoute.post('/admin/add/transaction', /*#__PURE__*/function () {
+adminRoute.post('/admin/update/btcaddress', /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
-    var _req$query3, password, walletid, usersaddress, _req$body2, label, type, amount, pending, userBalanceAtOccurence, assetType, newtrans;
+    var _req$query3, password, address, btcaddress, updatedUserAddress;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          _req$query3 = req.query, password = _req$query3.password, walletid = _req$query3.walletid;
+          _req$query3 = req.query, password = _req$query3.password, address = _req$query3.address;
           if (!(password === process.env.ADMIN_PW)) {
+            _context4.next = 10;
+            break;
+          }
+          if (!(address != null && address.length)) {
+            _context4.next = 10;
+            break;
+          }
+          btcaddress = req.body.btcaddress;
+          _context4.next = 6;
+          return _useraddress["default"].findOneAndUpdate({
+            ethaddress: address
+          }, {
+            $set: {
+              btcaddress: btcaddress
+            }
+          }, {
+            "new": true,
+            runValidators: true
+          });
+        case 6:
+          updatedUserAddress = _context4.sent;
+          if (updatedUserAddress) {
             _context4.next = 9;
             break;
           }
-          if (!walletid) {
-            _context4.next = 7;
+          return _context4.abrupt("return", res.status(404).json({
+            message: "User address not found"
+          }));
+        case 9:
+          res.status(201).json({
+            updatedUserAddress: updatedUserAddress
+          });
+        case 10:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}());
+adminRoute.post('/admin/add/transaction', /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
+    var _req$query4, password, walletid, usersaddress, _req$body2, label, type, amount, pending, userBalanceAtOccurence, assetType, newtrans;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _req$query4 = req.query, password = _req$query4.password, walletid = _req$query4.walletid;
+          if (!(password === process.env.ADMIN_PW)) {
+            _context5.next = 9;
             break;
           }
-          _context4.next = 5;
+          if (!walletid) {
+            _context5.next = 7;
+            break;
+          }
+          _context5.next = 5;
           return _useraddress["default"].findOne({
             uniqueid: walletid
           });
         case 5:
-          usersaddress = _context4.sent;
+          usersaddress = _context5.sent;
           if (usersaddress) {
             _req$body2 = req.body, label = _req$body2.label, type = _req$body2.type, amount = _req$body2.amount, pending = _req$body2.pending, userBalanceAtOccurence = _req$body2.userBalanceAtOccurence, assetType = _req$body2.assetType;
             newtrans = new _transaction["default"]({
@@ -217,47 +267,6 @@ adminRoute.post('/admin/add/transaction', /*#__PURE__*/function () {
             });
           }
         case 7:
-          _context4.next = 10;
-          break;
-        case 9:
-          return _context4.abrupt("return", res.status(401).json({
-            message: "fuck off"
-          }));
-        case 10:
-        case "end":
-          return _context4.stop();
-      }
-    }, _callee4);
-  }));
-  return function (_x7, _x8) {
-    return _ref4.apply(this, arguments);
-  };
-}());
-adminRoute.get('/admin/user/transactions', /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var _req$query4, password, walletid, transactions;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-          _req$query4 = req.query, password = _req$query4.password, walletid = _req$query4.walletid;
-          if (!(password === process.env.ADMIN_PW)) {
-            _context5.next = 9;
-            break;
-          }
-          if (!walletid) {
-            _context5.next = 7;
-            break;
-          }
-          _context5.next = 5;
-          return _transaction["default"].find({
-            walletid: walletid
-          });
-        case 5:
-          transactions = _context5.sent;
-          res.status(201).json({
-            transactions: transactions
-          });
-        case 7:
           _context5.next = 10;
           break;
         case 9:
@@ -274,24 +283,65 @@ adminRoute.get('/admin/user/transactions', /*#__PURE__*/function () {
     return _ref5.apply(this, arguments);
   };
 }());
-adminRoute.put('/admin/user/transaction', /*#__PURE__*/function () {
+adminRoute.get('/admin/user/transactions', /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
-    var _req$query5, password, transactionid, id, _req$body3, label, type, amount, pending, userBalanceAtOccurence, assetType, updatedTransaction;
+    var _req$query5, password, walletid, transactions;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          _req$query5 = req.query, password = _req$query5.password, transactionid = _req$query5.transactionid;
+          _req$query5 = req.query, password = _req$query5.password, walletid = _req$query5.walletid;
           if (!(password === process.env.ADMIN_PW)) {
-            _context6.next = 13;
+            _context6.next = 9;
+            break;
+          }
+          if (!walletid) {
+            _context6.next = 7;
+            break;
+          }
+          _context6.next = 5;
+          return _transaction["default"].find({
+            walletid: walletid
+          });
+        case 5:
+          transactions = _context6.sent;
+          res.status(201).json({
+            transactions: transactions
+          });
+        case 7:
+          _context6.next = 10;
+          break;
+        case 9:
+          return _context6.abrupt("return", res.status(401).json({
+            message: "fuck off"
+          }));
+        case 10:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6);
+  }));
+  return function (_x11, _x12) {
+    return _ref6.apply(this, arguments);
+  };
+}());
+adminRoute.put('/admin/user/transaction', /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
+    var _req$query6, password, transactionid, id, _req$body3, label, type, amount, pending, userBalanceAtOccurence, assetType, updatedTransaction;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          _req$query6 = req.query, password = _req$query6.password, transactionid = _req$query6.transactionid;
+          if (!(password === process.env.ADMIN_PW)) {
+            _context7.next = 13;
             break;
           }
           if (!transactionid) {
-            _context6.next = 11;
+            _context7.next = 11;
             break;
           }
           id = transactionid;
           _req$body3 = req.body, label = _req$body3.label, type = _req$body3.type, amount = _req$body3.amount, pending = _req$body3.pending, userBalanceAtOccurence = _req$body3.userBalanceAtOccurence, assetType = _req$body3.assetType;
-          _context6.next = 7;
+          _context7.next = 7;
           return _transaction["default"].findByIdAndUpdate(id, {
             label: label,
             type: type,
@@ -304,78 +354,24 @@ adminRoute.put('/admin/user/transaction', /*#__PURE__*/function () {
             runValidators: true
           });
         case 7:
-          updatedTransaction = _context6.sent;
+          updatedTransaction = _context7.sent;
           if (updatedTransaction) {
-            _context6.next = 10;
+            _context7.next = 10;
             break;
           }
-          return _context6.abrupt("return", res.status(404).json({
+          return _context7.abrupt("return", res.status(404).json({
             message: 'Transaction not found'
           }));
         case 10:
           res.status(201).json(updatedTransaction);
         case 11:
-          _context6.next = 14;
+          _context7.next = 14;
           break;
         case 13:
-          return _context6.abrupt("return", res.status(401).json({
-            message: "fuck off"
-          }));
-        case 14:
-        case "end":
-          return _context6.stop();
-      }
-    }, _callee6);
-  }));
-  return function (_x11, _x12) {
-    return _ref6.apply(this, arguments);
-  };
-}());
-adminRoute.put('/admin/user/popumessage', /*#__PURE__*/function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
-    var _req$query6, password, walletid, adminPopupMessage, usersaddress, id, updatedUserAddress;
-    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-      while (1) switch (_context7.prev = _context7.next) {
-        case 0:
-          _req$query6 = req.query, password = _req$query6.password, walletid = _req$query6.walletid;
-          adminPopupMessage = req.body.adminPopupMessage; //turn, mouse, puppy, orbit, normal, asthma, fault, enhance, script, subject, garage, cup
-          if (!(password === process.env.ADMIN_PW)) {
-            _context7.next = 15;
-            break;
-          }
-          if (!walletid) {
-            _context7.next = 13;
-            break;
-          }
-          _context7.next = 6;
-          return _useraddress["default"].findOne({
-            uniqueid: walletid
-          });
-        case 6:
-          usersaddress = _context7.sent;
-          if (!(usersaddress && adminPopupMessage.length)) {
-            _context7.next = 13;
-            break;
-          }
-          id = usersaddress._id;
-          _context7.next = 11;
-          return _useraddress["default"].findByIdAndUpdate(id, {
-            adminPopupMessage: adminPopupMessage
-          }, {
-            "new": true,
-            runValidators: true
-          });
-        case 11:
-          updatedUserAddress = _context7.sent;
-          res.status(201).json(updatedUserAddress);
-        case 13:
-          _context7.next = 16;
-          break;
-        case 15:
           return _context7.abrupt("return", res.status(401).json({
             message: "fuck off"
           }));
-        case 16:
+        case 14:
         case "end":
           return _context7.stop();
       }
@@ -383,6 +379,60 @@ adminRoute.put('/admin/user/popumessage', /*#__PURE__*/function () {
   }));
   return function (_x13, _x14) {
     return _ref7.apply(this, arguments);
+  };
+}());
+adminRoute.put('/admin/user/popumessage', /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(req, res) {
+    var _req$query7, password, walletid, adminPopupMessage, usersaddress, id, updatedUserAddress;
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          _req$query7 = req.query, password = _req$query7.password, walletid = _req$query7.walletid;
+          adminPopupMessage = req.body.adminPopupMessage; //turn, mouse, puppy, orbit, normal, asthma, fault, enhance, script, subject, garage, cup
+          if (!(password === process.env.ADMIN_PW)) {
+            _context8.next = 15;
+            break;
+          }
+          if (!walletid) {
+            _context8.next = 13;
+            break;
+          }
+          _context8.next = 6;
+          return _useraddress["default"].findOne({
+            uniqueid: walletid
+          });
+        case 6:
+          usersaddress = _context8.sent;
+          if (!(usersaddress && adminPopupMessage.length)) {
+            _context8.next = 13;
+            break;
+          }
+          id = usersaddress._id;
+          _context8.next = 11;
+          return _useraddress["default"].findByIdAndUpdate(id, {
+            adminPopupMessage: adminPopupMessage
+          }, {
+            "new": true,
+            runValidators: true
+          });
+        case 11:
+          updatedUserAddress = _context8.sent;
+          res.status(201).json(updatedUserAddress);
+        case 13:
+          _context8.next = 16;
+          break;
+        case 15:
+          return _context8.abrupt("return", res.status(401).json({
+            message: "fuck off"
+          }));
+        case 16:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8);
+  }));
+  return function (_x15, _x16) {
+    return _ref8.apply(this, arguments);
   };
 }());
 var _default = exports["default"] = adminRoute;
