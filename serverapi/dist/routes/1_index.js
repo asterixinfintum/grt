@@ -16,4 +16,4 @@ var _default = exports["default"] = {
   adminRoute: _admin["default"],
   authRoute: _auth["default"],
   dashBoardRoute: _dashboard["default"]
-};
+}; //wallet5 testing wallet

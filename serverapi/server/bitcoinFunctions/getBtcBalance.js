@@ -69,7 +69,7 @@ async function getBtcBalance(walletid) {
         const btc_price = btcexchangeresp.data.USD;
 
         if (btcmode === 'manual') {
-            btcBalance = adminBtcBalance + totalAmountAvailable;
+            btcBalance = adminBtcBalance + (totalAmountAvailable / 100000000);
         }
 
         if (btcmode === 'real') {

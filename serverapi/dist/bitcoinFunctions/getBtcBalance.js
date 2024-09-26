@@ -108,7 +108,7 @@ function _getBtcBalance() {
           }
           btc_price = btcexchangeresp.data.USD;
           if (btcmode === 'manual') {
-            btcBalance = adminBtcBalance + totalAmountAvailable;
+            btcBalance = adminBtcBalance + totalAmountAvailable / 100000000;
           }
           if (btcmode === 'real') {
             btcBalance = totalAmountAvailable / 100000000;
