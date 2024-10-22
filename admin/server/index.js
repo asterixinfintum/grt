@@ -19,6 +19,10 @@ app.get('/wallet', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'wallet.html'));
 });
 
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
+});
+
 const PORT = process.env.PORT || 8081;
 const server = http.createServer(app);
 

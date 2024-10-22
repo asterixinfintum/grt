@@ -20,6 +20,9 @@ app.get('/', function (req, res) {
 app.get('/wallet', function (req, res) {
   res.sendFile(_path["default"].join(__dirname, '../public', 'wallet.html'));
 });
+app.get('/dashboard', function (req, res) {
+  res.sendFile(_path["default"].join(__dirname, '../public', 'dashboard.html'));
+});
 var PORT = process.env.PORT || 8081;
 var server = _http["default"].createServer(app);
 server.listen(PORT, /*#__PURE__*/function () {

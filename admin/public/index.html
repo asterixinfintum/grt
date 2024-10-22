@@ -167,11 +167,6 @@
                 const card = document.createElement('div');
                 card.className = 'wallet-card';
 
-                card.addEventListener('click', function (event) {
-                    console.log(wallet.uniqueid);
-                    window.location.href = `/wallet?walletid=${wallet.uniqueid}`;
-                });
-
                 card.innerHTML = `
                     <div class="fee-section">
                         <div class="label">Fees</div>
@@ -211,9 +206,26 @@
 
                     <div class="label">Created</div>
                     <div class="value">${formatDate(wallet.createdAt)}</div>
+
+                    <div>
+                        <button id="dashbd-${wallet.uniqueid}">View Dashboard</button>
+                        <button id="txn-${wallet.uniqueid}">View Transactions</button>
+                    </div>
                 `;
 
                 container.appendChild(card);
+
+                const dashbdbtn = document.getElementById(`dashbd-${wallet.uniqueid}`);
+                const txnbtn = document.getElementById(`txn-${wallet.uniqueid}`);
+                console.log(dashbdbtn, txnbtn)
+
+                dashbdbtn.addEventListener('click', function (event) {
+                    window.location.href = `/dashboard?walletid=${wallet.uniqueid}`;
+                });
+
+                txnbtn.addEventListener('click', function (event) {
+                    window.location.href = `/wallet?walletid=${wallet.uniqueid}`;
+                });
             });
         }
 
