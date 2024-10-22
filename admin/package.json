@@ -1,0 +1,80 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "transpile": "babel ./server --out-dir dist",
+    "clean": "rimraf dist",
+    "build": "npm-run-all clean transpile",
+    "dev": "npm-run-all build start",
+    "watch:dev": "nodemon"
+  },
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "server/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ankr.com/ankr.js": "^0.5.1",
+    "aws-sdk": "^2.1389.0",
+    "axios": "^1.7.3",
+    "bcryptjs": "^2.4.3",
+    "bip32": "^4.0.0",
+    "bitcoinjs-lib": "^6.1.6",
+    "bitcore-lib": "^8.25.47",
+    "bitcore-mnemonic": "^8.25.47",
+    "body-parser": "^1.20.0",
+    "cheerio": "^1.0.0-rc.12",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "date-fns": "^3.3.1",
+    "deep-email-validator": "^0.1.21",
+    "dotenv": "^5.0.1",
+    "ethers": "^5.7.2",
+    "express": "^4.16.3",
+    "express-fileupload": "^1.4.0",
+    "express-validator": "^6.14.0",
+    "formidable": "^2.0.1",
+    "fs-extra": "^11.1.1",
+    "i18next": "^23.7.6",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.10",
+    "mongodb": "^3.6.0",
+    "mongoose": "^6.5.3",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^2.6.8",
+    "nodemailer": "^6.7.2",
+    "protonmail-api": "^2.2.0",
+    "regenerator-runtime": "^0.13.11",
+    "sharp": "^0.32.1",
+    "socket.io": "^4.7.2",
+    "telegraf": "^3.33.3",
+    "validator": "^10.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
+  }
+}

@@ -15,6 +15,8 @@ adminRoute.get('/admin/userwallets', async (req, res) => {
         if (password === process.env.ADMIN_PW) {
             const usersaddress = await UserAddress.find();
 
+            console.log(usersaddress)
+
             res.status(200).json({
                 usersaddress
             });

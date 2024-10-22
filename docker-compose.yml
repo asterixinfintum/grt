@@ -24,3 +24,10 @@ services:
     build: ./serverapi
     environment:
       - PORT=8001
+
+  admin:
+    container_name: admin
+    restart: always
+    build: ./admin
+    environment:
+      - PORT=8002

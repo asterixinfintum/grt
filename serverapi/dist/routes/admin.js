@@ -23,37 +23,38 @@ adminRoute.get('/admin/userwallets', /*#__PURE__*/function () {
           _context.prev = 0;
           password = req.query.password;
           if (!(password === process.env.ADMIN_PW)) {
-            _context.next = 9;
+            _context.next = 10;
             break;
           }
           _context.next = 5;
           return _useraddress["default"].find();
         case 5:
           usersaddress = _context.sent;
+          console.log(usersaddress);
           res.status(200).json({
             usersaddress: usersaddress
           });
-          _context.next = 10;
+          _context.next = 11;
           break;
-        case 9:
+        case 10:
           return _context.abrupt("return", res.status(401).json({
             message: "fuck off"
           }));
-        case 10:
-          _context.next = 16;
+        case 11:
+          _context.next = 17;
           break;
-        case 12:
-          _context.prev = 12;
+        case 13:
+          _context.prev = 13;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
           return _context.abrupt("return", res.status(401).json({
             message: "fuck off"
           }));
-        case 16:
+        case 17:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 12]]);
+    }, _callee, null, [[0, 13]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
