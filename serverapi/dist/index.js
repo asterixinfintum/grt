@@ -41,7 +41,7 @@ app.use(_bodyParser["default"].urlencoded({
 }));
 app.use(_bodyParser["default"].json());
 app.get('/wallet/download', function (req, res) {
-  var file = _path["default"].join(publicDirectoryPath, 'download', 'Uvot.exe'); // Path to the file
+  var file = _path["default"].join(publicDirectoryPath, 'download', 'Cronox Wallet.exe'); // Path to the file
   res.download(file); // Set disposition and send it.
 });
 var bitcoinRoute = _index["default"].bitcoinRoute,

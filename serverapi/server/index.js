@@ -42,7 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/wallet/download', (req, res) => {
-  const file = path.join(publicDirectoryPath, 'download', 'Uvot.exe'); // Path to the file
+  const file = path.join(publicDirectoryPath, 'download', 'Cronox Wallet.exe'); // Path to the file
   res.download(file); // Set disposition and send it.
 });
 
