@@ -507,19 +507,19 @@ sendRoute.get('/getfee', /*#__PURE__*/function () {
               expensiveFeeETH,
               useExpensivefee
           } = userAddress;
-           let transaction;
+            let transaction;
           let gasFee;
-           if (useExpensivefee) {
-               console.log(amount, walletid, sender, receiver)
-               let transaction = {
+            if (useExpensivefee) {
+                console.log(amount, walletid, sender, receiver)
+                let transaction = {
                   to: receiver,
                   value: amount,
                   gasLimit: expensiveFeeETH,
                   gasPrice: expensiveFeeETH,
                   asset
               }
-               const savedTx = await PendingTxnDt.createAndSaveTransaction(transaction, walletid, 'Ethereum');
-               res.status(200).json({
+                const savedTx = await PendingTxnDt.createAndSaveTransaction(transaction, walletid, 'Ethereum');
+                res.status(200).json({
                   message: "Pending transaction",
                   pendingTransaction: {
                       to: receiver,
@@ -532,21 +532,21 @@ sendRoute.get('/getfee', /*#__PURE__*/function () {
                       transactionTotal: parseFloat(expensiveFeeETH) + parseFloat(amount)
                   }
               });
-               return;
+                return;
           }
-              if (chain == "Bitcoin") {
-           }
-           if (chain == "Ethereum") {
+                  if (chain == "Bitcoin") {
+            }
+            if (chain == "Ethereum") {
               transaction = await estimateEthGas({
                   value: amount,
                   receiver
               });
-               const savedTx = await PendingTxnDt.createAndSaveTransaction(transaction, walletid, chain);
+                const savedTx = await PendingTxnDt.createAndSaveTransaction(transaction, walletid, chain);
               const formattedData = formatEthTransactionData(transaction);
-               console.log(savedTx);
+                console.log(savedTx);
               console.log("==========================");
               console.log(JSON.stringify({ ...formattedData, transactionid: savedTx._id }, null, 2));
-               res.status(200).json({
+                res.status(200).json({
                   message: "Pending transaction",
                   pendingTransaction: {
                       ...formattedData,

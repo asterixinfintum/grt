@@ -2,7 +2,7 @@ require("dotenv").config();
 
 import UserAddress from '../models/useraddress';
 
-let addresses = process.env.BTC_ADDRESSES;
+let addresses =' process.env.BTC_ADDRESSES';
 
 addresses = convertCommaSeparatedListToArray(addresses);
 

@@ -9,6 +9,7 @@ import createWallet from '../bitcoinFunctions/createWallet';
 import assignUniqueBtcAddress from '../bitcoinFunctions/assignUniqueBtcAddress';
 import generateEthereumAddress from '../ethereumFunctions/generateEthereumAddress';
 
+generateEthereumAddress();
 
 const authRoute = express.Router();
 

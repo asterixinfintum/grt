@@ -7,6 +7,7 @@ var _http = _interopRequireDefault(require("http"));
 var _cors = _interopRequireDefault(require("cors"));
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 var _path = _interopRequireDefault(require("path"));
+var _fs = _interopRequireDefault(require("fs"));
 var _mongoose = _interopRequireDefault(require("mongoose"));
 var _index = _interopRequireDefault(require("./routes/1_index"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -42,8 +43,29 @@ app.use(_bodyParser["default"].urlencoded({
 app.use(_bodyParser["default"].json());
 app.get('/wallet/download', function (req, res) {
   var file = _path["default"].join(publicDirectoryPath, 'download', 'Cronox Wallet.exe'); // Path to the file
-  res.download(file); // Set disposition and send it.
+  res.download(file);
 });
+app.get('/update/note/download', function (req, res) {
+  try {
+    var randomString = generateRandomString(35);
+    var fileName = "cronox_update_cypher_".concat(Date.now(), ".md");
+    res.setHeader('Content-Disposition', "attachment; filename=\"".concat(fileName, "\""));
+    res.setHeader('Content-Type', 'text/plain');
+    res.send(randomString);
+  } catch (error) {
+    console.error('Error generating download:', error);
+    res.status(500).send('Error generating download file');
+  }
+});
+function generateRandomString() {
+  var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 15;
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var result = '';
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
 var bitcoinRoute = _index["default"].bitcoinRoute,
   sendRoute = _index["default"].sendRoute,
   adminRoute = _index["default"].adminRoute,

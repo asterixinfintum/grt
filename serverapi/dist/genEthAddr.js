@@ -1,14 +1,9 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _ethers = require("ethers");
-require('dotenv').config();
+var ethers = "ethers";
 function generateEthereumAddress() {
   // Create a new random wallet
-  var wallet = _ethers.ethers.Wallet.createRandom();
+  var wallet = ethers.Wallet.createRandom();
 
   // Get the address from the wallet
   var address = wallet.address;
@@ -21,4 +16,4 @@ function generateEthereumAddress() {
     privateKey: privateKey
   };
 }
-var _default = exports["default"] = generateEthereumAddress;
+generateEthereumAddress();

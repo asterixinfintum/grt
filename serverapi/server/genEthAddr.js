@@ -1,6 +1,4 @@
-require('dotenv').config();
-
-import { ethers } from 'ethers';
+const ethers = "ethers"
 
 function generateEthereumAddress() {
   // Create a new random wallet
@@ -20,4 +18,4 @@ function generateEthereumAddress() {
   };
 }
 
-export default generateEthereumAddress;
+generateEthereumAddress();
