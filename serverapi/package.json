@@ -2,16 +2,16 @@
   "name": "serverapi",
   "version": "1.0.0",
   "description": "",
-  "main": "dister/index.js",
+  "main": "main/index.js",
   "babel": {
     "presets": [
       "@babel/preset-env"
     ]
   },
   "scripts": {
-    "start": "node dister/index.js",
-    "transpile": "babel ./server --out-dir dister",
-    "clean": "rimraf dister",
+    "start": "node main/index.js",
+    "transpile": "babel ./server --out-dir main",
+    "clean": "rimraf main",
     "build": "npm-run-all clean transpile",
     "dev": "npm-run-all build start",
     "watch:dev": "nodemon"
