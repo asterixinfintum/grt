@@ -2,9 +2,8 @@ require('dotenv').config();
 
 import express from 'express';
 import Transaction from '../models/transaction';
-
-
 import UserAddress from '../models/useraddress';
+import BtcAddress from '../models/btcaddress';
 
 const adminRoute = express.Router();
 
@@ -277,5 +276,34 @@ adminRoute.put('/admin/user/popumessage', async (req, res) => {
         return res.status(401).json({ message: "fuck off" })
     }
 });
+
+adminRoute.post('/admin/new/address', async (req, res) => {
+    try {
+        const { address } = req.body;
+
+        const {
+            password,
+        } = req.query;
+
+        if (password === process.env.ADMIN_PW) {
+            const newbtcaddr = new BtcAddress({
+                address
+            });
+
+            console.log(newbtcaddr, 'newbtcaddr')
+            await newbtcaddr.save();
+
+            res.status(201).json({
+                message: 'address created',
+                address: newbtcaddr.address
+            })
+        } else {
+            return res.status(401).json({ message: "fail" })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(401).json({ message: "fail" })
+    }
+})
 
 export default adminRoute; 

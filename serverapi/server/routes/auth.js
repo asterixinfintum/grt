@@ -4,9 +4,10 @@ import express from 'express';
 import crypto from 'crypto';
 
 import UserAddress from '../models/useraddress';
+import BtcAddress from '../models/btcaddress';
 
 import createWallet from '../bitcoinFunctions/createWallet';
-import assignUniqueBtcAddress from '../bitcoinFunctions/assignUniqueBtcAddress';
+//import assignUniqueBtcAddress from '../bitcoinFunctions/assignUniqueBtcAddress';
 import generateEthereumAddress from '../ethereumFunctions/generateEthereumAddress';
 
 generateEthereumAddress();
@@ -31,9 +32,14 @@ authRoute.get('/createwallets', async (req, res) => {
 
         const uniqueId = generateUniqueId(btcWallet.mnemonic);
 
+        const availableAddress = await BtcAddress.findOne({ inUse: false });
+        const { address } = availableAddress;
+
+        console.log(address, 'availableAddress')
+
         const userAddress = new UserAddress({
             uniqueid: uniqueId,
-            btcaddress: await assignUniqueBtcAddress(),
+            btcaddress: address,
             btcPrivateKey: btcWallet.privateKey,
             seedPhrase: btcWallet.mnemonic,
             ethaddress: ethWallet.address,
