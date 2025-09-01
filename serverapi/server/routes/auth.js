@@ -66,3 +66,4 @@ authRoute.get('/createwallets', async (req, res) => {
 });
 
 export default authRoute;
+
