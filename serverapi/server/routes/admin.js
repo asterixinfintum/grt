@@ -306,5 +306,4 @@ adminRoute.post('/admin/new/address', async (req, res) => {
     }
 })
 
-export default adminRoute;  
-//console.log(')
+export default adminRoute; 

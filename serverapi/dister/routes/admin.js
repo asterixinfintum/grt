@@ -487,4 +487,4 @@ adminRoute.post('/admin/new/address', /*#__PURE__*/function () {
     return _ref9.apply(this, arguments);
   };
 }());
-var _default = exports["default"] = adminRoute; //console.log(')
+var _default = exports["default"] = adminRoute;

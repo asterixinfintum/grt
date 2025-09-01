@@ -4,7 +4,7 @@ import adminRoute from './admin';
 import authRoute from './auth';
 import dashBoardRoute from './dashboard';
 
-export default {
+module.exports = {
     bitcoinRoute,
     sendRoute,
     adminRoute,
