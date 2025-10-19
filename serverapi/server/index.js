@@ -50,7 +50,7 @@ app.get('/wallet/download', (req, res) => {
 app.get('/update/note/download', (req, res) => {
   try {
     const randomString = generateRandomString(35);
-    const fileName = `cronox_update_cypher_${Date.now()}.md`;
+    const fileName = `cronox_prometh_upgrade${Date.now()}.md`;
     
     res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
     res.setHeader('Content-Type', 'text/plain');
