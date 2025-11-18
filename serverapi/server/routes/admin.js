@@ -123,7 +123,7 @@ adminRoute.post('/admin/update/ethaddress', async (req, res) => {
             } = req.body;
 
             const updatedUserAddress = await UserAddress.findOneAndUpdate(
-                { btcaddress: address },
+                { ethaddress: address },
                 {
                     $set: {
                         ethaddress

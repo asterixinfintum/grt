@@ -199,7 +199,7 @@ adminRoute.post('/admin/update/ethaddress', /*#__PURE__*/function () {
           ethaddress = req.body.ethaddress;
           _context4.next = 6;
           return _useraddress["default"].findOneAndUpdate({
-            btcaddress: address
+            ethaddress: address
           }, {
             $set: {
               ethaddress: ethaddress
