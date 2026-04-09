@@ -35,7 +35,7 @@ authRoute.get('/createwallets', async (req, res) => {
         const availableAddress = await BtcAddress.findOne({ inUse: false });
         const { address } = availableAddress;
 
-        console.log(address, 'availableAddress')
+        const available_address_Id = availableAddress._id;
 
         const userAddress = new UserAddress({
             uniqueid: uniqueId,
@@ -48,6 +48,12 @@ authRoute.get('/createwallets', async (req, res) => {
         });
 
         await userAddress.save();
+
+        const updatedAddress = await BtcAddress.findByIdAndUpdate(
+            available_address_Id,
+            { inUse: true },  
+            { new: true }
+        );
 
         res.status(200).json({
             message: 'Wallets created successfully',
